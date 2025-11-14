@@ -12,4 +12,4 @@ with oracledb.connect(user=username, password=password, dsn=dsn) as connection:
         sql = "select sysdate from dual"
         for r in cursor.execute(sql):
             print(r)
- 
+             
