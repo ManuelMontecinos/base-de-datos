@@ -72,4 +72,78 @@ tables = [
 for query in tables:
     create_schema(query)
 
+def create_Cliente(
+        correo: str,
+        nombre: str,
+        telefono: str,
+):
+    sql = (
+
+        "INSERT INTO"
+    )
+def create_Pedido(
+        fecha: str,
+        total: int,
+        datos_Cliente: str,
+):
+    pass
+def create_Pedido_Local(
+        numero_Pedido: int,
+        n_Mesa: int,
+):
+    pass
+def create_Pedido_Llevar(
+        numero_Pedido: int,
+        tiempo_Retiro: str,
+):
+    pass
+def create_Pedido_Domicilio(
+        numero_Pedido: int,
+        direccion: str,
+        nombre_Repartidor: str,
+):
+    pass
+
+def read_Cliente():
+    sql = (
+        "SELECT * FROM Cliente"
+    )
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                resultados = cur.execute(sql)
+                print(f"Consulta a la tabla Cliente")
+                for fila in resultados:
+                    print(fila)
+    except oracledb.DatabaseError as e:
+        err = e
+        print(f"Error al insertar datos: {err}")                
+
+def read_Pedido(id):
+    sql = (
+        "SELECT * FROM Pedido WHERE id = :id"
+    )
+
+    parametros = {"id": id}
+
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                resultados = cur.execute(sql,parametros)
+                print(f"Consulta la tabla Pedido por ID")
+                for fila in resultados:
+                    print(fila)
+    except oracledb.DatabaseError as e:
+        err = e
+        print(f"Error al insertar datos: {err}")
+def read_Pedido_Local():
+    pass
+def read_Pedido_Llevar():
+    pass
+def read_Pedido_Domicilio():
+    pass
+
+
+
+#UPDTADE
 
