@@ -147,3 +147,83 @@ def read_Pedido_Domicilio():
 
 #UPDTADE
 
+from typing import Optional
+def update_cliente(correo_electronico, nombre, telefono):
+    modificaciones = []
+    parametros = {"correo_electronico": correo_electronico}
+
+    if correo_electronico  is not None:
+        modificaciones.append("correo_electronico =: correo_electronico ")
+        parametros["correo_electronico"] = correo_electronico
+    if nombre is not None:
+        modificaciones.append("nombre =: nombre")
+        parametros["nombre"] = nombre
+    if telefono is not None:
+        modificaciones.append("telefono =: telefono")
+        parametros["telefono"] = telefono
+    if not modificaciones:
+        return print("No hay campos para actualizar.")
+   
+    sql = f"UPDATE cliente SET {", ".join(modificaciones)} WHERE correo_electronico =: correo_electronico"
+    print(sql)
+    with get_connection() as conn:
+            with conn.cursor() as cur:
+                resultados = cur.execute(sql)
+            conn.commit()
+            print(f"Cliente con correo_electronico= {correo_electronico} actualizada.")
+
+
+
+#delete - eliminacion de datos
+def delete_Cliente (correo_electronico : str):
+    sql = (
+        "DELETE FROMPERSONAS WHERE correo_electronico = :correo_electronico"
+
+    )
+
+    parametros= {"correo_electronico" : correo_electronico}
+    try:
+        with get_connection () as conn:
+            with conn.cursor () as cur:
+                cur.execute(sql, parametros)
+            conn.commit()
+            print(f"Dato eliminado \n {parametros}")
+    except oracledb.DatabaseError as e:
+        err= e 
+        print(f"Error al eliminar dato: {err} \n {sql} \ {parametros}")
+
+def main():
+    while True:
+        print(
+            """
+
+            ======================================
+            |   CRUD CON ORACLESQL                |
+            ======================================
+            |1.aplicar esquema en la base de datos|
+            |2.tabla Clientes                     |
+            |3.tabla Pedidos                      |
+            |4.tabla Pedido_Local                 |
+            |5.tabla Pedido_Llevar                |
+            |6.Pedido_Domicilio                    |
+            |0. salir                             |
+            =======================================
+            """
+        )
+        opcion = input("selecciona una opcion [1-4, 0 para salir]:")
+
+        if opcion == "0":
+            print("Adios")
+            input("Presiona ENTER para continuar...")
+            break
+        elif opcion == "1":
+            pass
+        elif opcion == "2":
+            pass
+        elif opcion == "3":
+            pass
+        elif opcion == "4":
+            pass
+        else:
+if __name__=="__main__":
+    main() 
